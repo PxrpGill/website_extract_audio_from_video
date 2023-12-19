@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Получение из видео аудио дорожку. Главная страница
+{% endblock %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="container mt-5 col-7">
+    {% if user.is_authenticated %}
+      <h3>Загрузите видео</h3>
+      <hr>
+      <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Загрузить" %}
+      </form>
+    {% else %}
+      <h3>
+        <a href="{% url 'login' %}">Войдите в аккаунт</a>
+        или <a href="{% url 'registration' %}">
+        зарегистрируйтесь</a>, чтобы воспользоваться сервисом!
+      </h3>
+    {% endif %}
+  </div>
+{% endblock %}

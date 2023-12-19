@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Форматирование завершено успешно
+{% endblock %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h3 class="mb-3">Получение аудио-файла прошло успешно!</h3>
+    <audio controls>
+      <source src="{{ audio_path }}" type="audio/mpeg">
+      Ваш браузер не поддерживает этот формат аудио.
+    </audio>
+    <form method="post"
+          action="{% url 'converter:download_file' audio_path %}"
+          enctype="multipart/form-data" class="mt-3">
+      {% csrf_token %}
+      {% bootstrap_button button_type="submit" content="Скачать аудио" %}
+    </form>
+  </div>
+{% endblock %}
